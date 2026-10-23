@@ -395,14 +395,17 @@ Authenticate with Hugging Face before loading gated checkpoints.
 [`nvcr.io/nvidia/tensorrt-llm/release:1.3.0rc22`](https://catalog.ngc.nvidia.com/orgs/nvidia/tensorrt-llm/containers/release)
 container.
 
-**Cosmos3-Edge** uses `Cosmos3EdgeForConditionalGeneration`. That release image
-does not include the architecture. Install TensorRT-LLM from a checkout that
-includes [PR 20307](https://github.com/NVIDIA/TensorRT-LLM/pull/20307), following
-the [TensorRT-LLM Generator source-build instructions](#tensorrt-llm-generator),
+**Cosmos3-Edge** uses `Cosmos3EdgeForConditionalGeneration`. Release images
+through `v1.4.0rc1`, including `release:1.3.0rc22`, do not include that
+architecture. Install TensorRT-LLM from upstream `main` at or after
+[`39a44fab`](https://github.com/NVIDIA/TensorRT-LLM/commit/39a44fab74f4cfc0d4d498be385e746fdd182872)
+(the merge of [PR 20307](https://github.com/NVIDIA/TensorRT-LLM/pull/20307)),
+following the
+[TensorRT-LLM Generator source-build instructions](#tensorrt-llm-generator),
 and run the Edge command below in that environment.
 
-Install headless OpenCV in the environment that runs the server. Cosmos3
-Reasoner uses it to process vision inputs:
+Install headless OpenCV with the same interpreter that provides `trtllm-serve`.
+Cosmos3 Reasoner uses it to process vision inputs:
 
 ```bash
 python -m pip install opencv-python-headless
@@ -434,7 +437,7 @@ trtllm-serve nvidia/Cosmos3-Super \
 ```
 
 **Cosmos3-Edge** (single GPU, port 8001) — run in the source environment above,
-not in `release:1.3.0rc22`:
+not in a release image through `v1.4.0rc1`:
 
 ```bash
 CUDA_VISIBLE_DEVICES=0 \
